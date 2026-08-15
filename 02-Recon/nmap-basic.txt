@@ -1,0 +1,23 @@
+# Nmap 7.98 scan initiated Thu Aug 13 02:03:49 2026 as: /usr/lib/nmap/nmap --privileged -oN /home/kali/SOC-LAB-2026/02-Recon/nmap-basic.txt 192.168.56.103
+Nmap scan report for 192.168.56.103
+Host is up (0.71s latency).
+Not shown: 985 closed tcp ports (reset)
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+23/tcp   open  telnet
+25/tcp   open  smtp
+80/tcp   open  http
+111/tcp  open  rpcbind
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+512/tcp  open  exec
+513/tcp  open  login
+514/tcp  open  shell
+1524/tcp open  ingreslock
+2049/tcp open  nfs
+2121/tcp open  ccproxy-ftp
+6667/tcp open  irc
+MAC Address: 08:00:27:3B:C8:7E (Oracle VirtualBox virtual NIC)
+
+# Nmap done at Thu Aug 13 02:03:52 2026 -- 1 IP address (1 host up) scanned in 2.93 seconds

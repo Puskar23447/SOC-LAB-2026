@@ -1,0 +1,20 @@
+SOC LAB NETWORK TOPOLOGY
+
+Kali Linux
+IP: 192.168.56.101
+Role: Investigation / Monitoring Machine
+        |
+        | VirtualBox Host-Only Network
+        |
+        |
+Metasploitable
+IP: 192.168.56.103
+Role: Target / Lab Machine
+
+Tools used from Kali:
+- Nmap
+- Wireshark
+- Netcat
+- FTP
+- Telnet
+- NFS

@@ -1,0 +1,46 @@
+SOC INCIDENT REPORT
+
+Incident ID: INV-001
+Severity: High
+Status: Closed - Lab Investigation
+
+Incident:
+Insecure NFS configuration was identified on the
+Metasploitable machine.
+
+Affected Host:
+192.168.56.103
+
+Finding:
+The NFS export configuration showed:
+
+/ *
+
+This means the root directory was exported to all hosts.
+
+Evidence:
+- nfs-export.png
+- nfs-root-access.png
+- evidence-index.txt
+
+Impact:
+An improperly restricted NFS export may allow unauthorized
+access to files on the system.
+
+Other Observations:
+- Telnet was open on port 23.
+- SMB ports 139 and 445 were open.
+- FTP services were available.
+- Multiple other services were exposed.
+
+Recommended Actions:
+- Restrict NFS access to trusted hosts.
+- Do not export the root directory.
+- Disable unnecessary services.
+- Disable Telnet and use SSH.
+- Monitor unusual access and authentication attempts.
+
+Conclusion:
+The investigation identified an insecure NFS configuration
+and several unnecessary exposed services. The lab was
+performed in an isolated VirtualBox environment.

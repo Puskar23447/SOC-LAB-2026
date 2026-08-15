@@ -1,0 +1,302 @@
+==================================================
+SOC LAB INVESTIGATION REPORT
+==================================================
+
+Investigation ID: INV-001
+Project: SOC Lab - Network Investigation
+Target: Metasploitable
+Analyst: Student
+Date: August 2026
+
+
+1. OBJECTIVE
+--------------------------------------------------
+
+The main objective of this lab was to practice basic SOC
+investigation using Kali Linux and Metasploitable.
+
+I wanted to understand how to identify network services,
+observe network traffic and investigate possible security
+issues in an isolated lab environment.
+
+
+2. LAB ENVIRONMENT
+--------------------------------------------------
+
+Kali Linux:
+192.168.56.101
+
+Metasploitable:
+192.168.56.103
+
+Network:
+VirtualBox Host-Only Network
+
+Tools used:
+
+- Nmap
+- Wireshark
+- Netcat
+- FTP
+- Telnet
+- NFS
+- Linux commands
+
+
+3. NETWORK CONNECTIVITY
+--------------------------------------------------
+
+First, I checked whether Kali Linux could communicate with
+the Metasploitable machine.
+
+I used ping to test the connection.
+
+The ping test was successful and packets were received from
+192.168.56.103.
+
+This confirmed that both machines were communicating correctly.
+
+
+4. NMAP RECONNAISSANCE
+--------------------------------------------------
+
+I performed an Nmap scan against the Metasploitable machine
+to identify open ports and services.
+
+The scan showed several open ports.
+
+Important ports found included:
+
+21/tcp   FTP
+22/tcp   SSH
+23/tcp   Telnet
+25/tcp   SMTP
+80/tcp   HTTP
+111/tcp  rpcbind
+139/tcp  NetBIOS
+445/tcp  Microsoft-DS
+512/tcp  exec
+513/tcp  login
+514/tcp  shell
+1524/tcp ingreslock
+2049/tcp NFS
+2121/tcp ccproxy-ftp
+6667/tcp IRC
+
+The large number of open services showed that the
+Metasploitable machine was intentionally configured with
+many services for security testing.
+
+
+5. FTP INVESTIGATION
+--------------------------------------------------
+
+I investigated the FTP service running on the target.
+
+The normal FTP connection on port 21 was not responding
+properly during the test.
+
+I also checked the FTP service on port 2121.
+
+The server identified itself as ProFTPD 1.3.1.
+
+I tried an anonymous login, but the login failed with:
+
+530 Login incorrect.
+
+This showed that the anonymous authentication attempt was
+not successful.
+
+I captured the activity using Wireshark for further analysis.
+
+
+6. HTTP INVESTIGATION
+--------------------------------------------------
+
+Port 80 was found open during the Nmap scan.
+
+I checked the port using network connectivity tools.
+
+The port was reachable, although the HTTP request did not
+return a response during one of the tests.
+
+This showed that the service was listening but further
+application-level investigation would be required.
+
+
+7. SMB INVESTIGATION
+--------------------------------------------------
+
+Ports 139 and 445 were found open.
+
+I checked the ports using Netcat and confirmed that both
+ports were reachable.
+
+I also tried SMB enumeration.
+
+The SMB enumeration request timed out.
+
+Therefore, I recorded the open SMB ports as an observation
+but did not claim successful SMB enumeration.
+
+
+8. TELNET INVESTIGATION
+--------------------------------------------------
+
+Port 23 was found open during reconnaissance.
+
+I connected to the service using Telnet.
+
+The connection to 192.168.56.103 was successful.
+
+Telnet is an old remote access protocol and does not provide
+the same level of security as modern encrypted remote access.
+
+The presence of Telnet was therefore recorded as a security
+finding in the lab.
+
+
+9. NFS INVESTIGATION
+--------------------------------------------------
+
+NFS was one of the most important findings in this lab.
+
+I checked the NFS exports using:
+
+showmount -e 192.168.56.103
+
+The result showed:
+
+/ *
+
+This means that the root directory was exported to all hosts.
+
+I then investigated the export and was able to mount it during
+the lab.
+
+This showed that the NFS configuration was insecure and could
+potentially expose sensitive files.
+
+This was considered the most important finding of the lab.
+
+
+10. WIRESHARK ANALYSIS
+--------------------------------------------------
+
+I used Wireshark to observe the network traffic generated
+during the investigation.
+
+The ICMP capture showed Echo Request and Echo Reply packets
+between Kali Linux and Metasploitable.
+
+I also captured traffic related to reconnaissance and FTP
+activity.
+
+Wireshark helped me understand the difference between normal
+network communication and traffic generated while testing
+services.
+
+
+11. MAIN FINDINGS
+--------------------------------------------------
+
+Finding 1:
+Multiple network services were exposed on the Metasploitable
+machine.
+
+Finding 2:
+Telnet was accessible on port 23.
+
+Finding 3:
+SMB ports 139 and 445 were open.
+
+Finding 4:
+FTP service was present and an anonymous login attempt failed.
+
+Finding 5:
+NFS exported the root directory to all hosts.
+
+Finding 6:
+Network traffic generated during the investigation could be
+observed using Wireshark.
+
+
+12. RISK ASSESSMENT
+--------------------------------------------------
+
+The NFS configuration was considered the highest-risk finding
+because the root directory was exported to all hosts.
+
+Telnet was also considered a security concern because it is
+an insecure remote access protocol.
+
+The other open services increase the attack surface of the
+machine and should be reviewed and restricted where they are
+not required.
+
+
+13. RECOMMENDATIONS
+--------------------------------------------------
+
+1. Restrict NFS exports to trusted hosts only.
+
+2. Do not export the root directory through NFS.
+
+3. Disable Telnet and use SSH instead.
+
+4. Close unnecessary network ports.
+
+5. Restrict SMB access using firewall rules and proper
+   authentication.
+
+6. Disable unused FTP services.
+
+7. Monitor authentication failures.
+
+8. Regularly review exposed services using network scanning
+   and log analysis.
+
+
+14. EVIDENCE
+--------------------------------------------------
+
+Evidence collected during the investigation includes:
+
+- ICMP packet capture
+- Nmap reconnaissance results
+- FTP failed login evidence
+- Wireshark packet captures
+- HTTP port check
+- SMB port check
+- SMB enumeration timeout
+- Telnet connection
+- NFS export evidence
+- NFS root access evidence
+- Investigation timeline
+- Network investigation notes
+
+
+15. CONCLUSION
+--------------------------------------------------
+
+This lab helped me understand the basic workflow of a SOC
+investigation.
+
+I started by checking network connectivity and then performed
+reconnaissance using Nmap.
+
+After finding open services, I investigated selected services
+and captured network traffic using Wireshark.
+
+The most important finding was the insecure NFS configuration
+where the root directory was exported to all hosts.
+
+This project gave me practical experience in reconnaissance,
+network traffic analysis, service investigation and security
+documentation.
+
+The entire investigation was performed in an isolated
+VirtualBox lab using Kali Linux and Metasploitable.
+==================================================
+END OF REPORT
+==================================================

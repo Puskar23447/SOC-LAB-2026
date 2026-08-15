@@ -1,0 +1,62 @@
+SOC LAB - EVIDENCE INDEX
+
+Investigation ID: INV-001
+
+1. Network Investigation
+Evidence:
+04-Wireshark/ping-investigation.pcapng
+
+Description:
+ICMP communication between Kali Linux and Metasploitable.
+
+2. FTP Investigation
+Evidence:
+04-Wireshark/ftp-failed-login.pcapng
+
+Description:
+FTP connection and failed authentication activity.
+
+3. Nmap Reconnaissance
+Evidence:
+02-Recon/nmap-basic.txt
+
+Description:
+Nmap scan showing open ports and services.
+
+4. Wireshark Reconnaissance
+Evidence:
+07-Screenshots/nmap-traffic-wireshark.png
+
+Description:
+Network traffic generated during reconnaissance.
+
+5. NFS Investigation
+Evidence:
+07-Screenshots/nfs-export.png
+07-Screenshots/nfs-root-access.png
+
+Description:
+NFS export was available to all hosts and was successfully mounted
+during the lab.
+
+6. SMB Investigation
+Evidence:
+07-Screenshots/smb-ports-open.png
+07-Screenshots/smb-enumeration-timeout.png
+
+Description:
+SMB-related ports were open, but enumeration timed out.
+
+7. Telnet Investigation
+Evidence:
+07-Screenshots/telnet-connection.png
+
+Description:
+Telnet service was accessible on the target.
+
+8. HTTP Investigation
+Evidence:
+07-Screenshots/http-port-check.png
+
+Description:
+HTTP port 80 was found open on the target.

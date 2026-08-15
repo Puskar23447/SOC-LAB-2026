@@ -1,0 +1,88 @@
+SOC LAB - BASIC DETECTIONS
+
+1. PORT SCANNING DETECTION
+
+Source IP:
+192.168.56.101
+
+Target IP:
+192.168.56.103
+
+What I observed:
+During the Nmap scan, Kali sent connection attempts to
+different ports of the Metasploitable machine.
+
+Detection idea:
+If one source IP sends many TCP SYN requests to different
+ports of the same target within a short period, it may
+indicate possible port scanning.
+
+Evidence:
+Nmap result and Wireshark capture.
+
+Action:
+In a real SOC environment, I would first check whether the
+scan was authorized. If it was not authorized, I would
+investigate the source machine and check for other related
+activity.
+
+
+2. FAILED FTP LOGIN DETECTION
+
+Source IP:
+192.168.56.101
+
+Target IP:
+192.168.56.103
+
+Service:
+FTP - Port 2121
+
+What I observed:
+I tried an anonymous FTP login and the server rejected the
+login with "530 Login incorrect."
+
+Detection idea:
+Repeated failed login attempts to an FTP service can be
+treated as suspicious authentication activity.
+
+Evidence:
+FTP terminal screenshot and Wireshark capture.
+
+Action:
+I would check the source IP, review the FTP logs and check
+whether there were other failed login attempts.
+
+
+3. EXPOSED SERVICES DETECTION
+
+What I observed:
+The Metasploitable machine had several services available,
+including FTP, Telnet, SMB, HTTP and NFS.
+
+Detection idea:
+A large number of exposed services increases the attack
+surface of the machine. Services that are not required
+should be disabled.
+
+Action:
+I would identify which services are actually required and
+disable the unnecessary services.
+
+
+4. NFS MISCONFIGURATION DETECTION
+
+What I observed:
+The NFS server was exporting the root directory "/" to "*".
+I was able to mount the export from Kali.
+
+Detection:
+An NFS export that allows access to the root filesystem
+from any host should be treated as a serious security issue.
+
+Risk:
+High
+
+Action:
+Restrict the NFS export to trusted hosts and avoid exporting
+the root filesystem unless it is specifically required.
